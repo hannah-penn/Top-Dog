@@ -28,6 +28,32 @@
   color: #61dafb;
 }
 
+.tooltipcontainer {
+  border: 5px black solid;
+  visibility: visible;
+  position: relative;
+  display: block;
+}
+
+.tooltipcontainer:hover {
+  border: 5px yellow dashed;
+}
+
+.tooltipcontainer .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  left: -50px;
+  top: 25px;
+  z-index: 1;
+}
+
+.tooltipcontainer:hover .tooltiptext {
+  visibility: visible;
+  background-color: yellow;
+  padding: 2px;
+  border-radius: 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
