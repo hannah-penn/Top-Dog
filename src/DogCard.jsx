@@ -3,16 +3,23 @@ import React from "react";
 const DogCard = (props) => {
   return (
     <div
-      style={{
-        maxWidth: "500px",
-        maxHeight: "400px",
-        margin: "20px auto",
-        backgroundColor: "lightyellow",
-      }}
+      style={
+        props.selectedDog
+          ? {
+              maxWidth: "1000px",
+              maxHeight: "400px",
+              margin: "20px auto",
+              backgroundColor: "hotpink",
+            }
+          : {
+              maxWidth: "500px",
+              maxHeight: "400px",
+              margin: "20px auto",
+              backgroundColor: "lightyellow",
+            }
+      }
       onClick={(event) => {
         props.chooseDog(props.pet.name);
-        console.log(event.target);
-        event.target.style = { ...event.target.style, backgroundColor: "red" };
       }}
       id="dogCard"
       class="tooltipcontainer"
