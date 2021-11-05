@@ -28,6 +28,25 @@
   color: #61dafb;
 }
 
+.nameBar {
+  background-color: turquoise;
+  font-family: "Helvetica";
+  font-size: 40px;
+  list-style-type: none;
+}
+
+.breedBar {
+  background-color: pink;
+  text-decoration: underline;
+  font-weight: bold;
+  list-style-type: none;
+}
+
+.profilePhoto {
+  max-height: 200px;
+  max-width: 200px;
+}
+
 .tooltipcontainer {
   border: 5px black solid;
   visibility: visible;

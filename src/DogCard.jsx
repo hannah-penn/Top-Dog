@@ -15,23 +15,9 @@ const DogCard = (props) => {
       id="dogCard"
     >
       <span class="tooltiptext">Click to hide or unhide other dogs.</span>
+      <li className="nameBar">{props.pet.name}</li>
       <li
-        style={{
-          backgroundColor: "turquoise",
-          fontFamily: "Helvetica",
-          fontSize: "40px",
-          listStyleType: "none",
-        }}
-      >
-        {props.pet.name}
-      </li>
-      <li
-        style={{
-          backgroundColor: "pink",
-          textDecoration: "underline",
-          fontWeight: "bold",
-          listStyleType: "none",
-        }}
+        className="breedBar"
         onClick={(event) => {
           event.stopPropagation();
           let url = "https://www.google.com/search?q=" + props.pet.breed;
@@ -41,27 +27,13 @@ const DogCard = (props) => {
         {props.pet.breed}
       </li>
       {props.showDogs ? (
-        <img
-          src={props.pet.url}
-          alt=""
-          style={{
-            maxHeight: "200px",
-            maxWidth: "200px",
-          }}
-        />
+        <img src={props.pet.url} alt="" className="profilePhoto" />
       ) : (
         ""
       )}
       {props.showDogs && props.selectedDog
         ? props.pet.extraphotos.map((image) => (
-            <img
-              src={image.url}
-              alt=""
-              style={{
-                maxHeight: "200px",
-                maxWidth: "200px",
-              }}
-            />
+            <img src={image.url} alt="" className="profilePhoto" />
           ))
         : ""}
       <p>{props.selectedDog ? props.pet.bio : ""}</p>
