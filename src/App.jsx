@@ -13,6 +13,7 @@ class App extends Component {
   }
   dogList = [
     {
+      id: 1,
       name: "Rex",
       breed: "Rottweiler",
       url: "https://cdn.petpress.net/wp-content/uploads/2019/10/12222841/Rottweiler8-.jpg",
@@ -37,6 +38,7 @@ class App extends Component {
       ],
     },
     {
+      id: 2,
       name: "Wally",
       breed: "Wolfhound",
       url: "https://i.pinimg.com/originals/77/9c/ec/779cec6e3a9230a8284e1087e80a3832.jpg",
@@ -58,6 +60,7 @@ class App extends Component {
       ],
     },
     {
+      id: 3,
       name: "Dora",
       breed: "Dachsund",
       url: "https://dachshundbonus.com/wp-content/uploads/2019/07/67338805_2295690134004037_9023976367661776896_n.jpg",
@@ -106,24 +109,22 @@ class App extends Component {
 
         {this.dogList.map((pet) =>
           this.state.selectedDog === null ? (
-            <>
+            <DogCard
+              pet={pet}
+              showDogs={this.state.showDogs}
+              selectedDog={this.state.selectedDog}
+              chooseDog={this.chooseDog}
+              key={pet.id.toString()}
+            />
+          ) : (
+            this.state.selectedDog === pet.name && (
               <DogCard
                 pet={pet}
                 showDogs={this.state.showDogs}
                 selectedDog={this.state.selectedDog}
                 chooseDog={this.chooseDog}
+                key={pet.id.toString()}
               />
-            </>
-          ) : (
-            this.state.selectedDog === pet.name && (
-              <>
-                <DogCard
-                  pet={pet}
-                  showDogs={this.state.showDogs}
-                  selectedDog={this.state.selectedDog}
-                  chooseDog={this.chooseDog}
-                />
-              </>
             )
           )
         )}
