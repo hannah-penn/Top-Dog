@@ -114,17 +114,17 @@ class App extends Component {
                 chooseDog={this.chooseDog}
               />
             </>
-          ) : this.state.selectedDog === pet.name ? (
-            <>
-              <DogCard
-                pet={pet}
-                showDogs={this.state.showDogs}
-                selectedDog={this.state.selectedDog}
-                chooseDog={this.chooseDog}
-              />
-            </>
           ) : (
-            ""
+            this.state.selectedDog === pet.name && (
+              <>
+                <DogCard
+                  pet={pet}
+                  showDogs={this.state.showDogs}
+                  selectedDog={this.state.selectedDog}
+                  chooseDog={this.chooseDog}
+                />
+              </>
+            )
           )
         )}
       </div>

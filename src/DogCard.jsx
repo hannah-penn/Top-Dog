@@ -26,17 +26,15 @@ const DogCard = (props) => {
       >
         {props.pet.breed}
       </li>
-      {props.showDogs ? (
+      {props.showDogs && (
         <img src={props.pet.url} alt="" className="profilePhoto" />
-      ) : (
-        ""
       )}
-      {props.showDogs && props.selectedDog
-        ? props.pet.extraphotos.map((image) => (
-            <img src={image.url} alt="" className="profilePhoto" />
-          ))
-        : ""}
-      <p>{props.selectedDog ? props.pet.bio : ""}</p>
+      {props.showDogs &&
+        props.selectedDog &&
+        props.pet.extraphotos.map((image) => (
+          <img src={image.url} alt="" className="profilePhoto" />
+        ))}
+      <p>{props.selectedDog && props.pet.bio}</p>
     </div>
   );
 };
