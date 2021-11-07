@@ -14,7 +14,6 @@ const DogCard = (props) => {
       }}
       id="dogCard"
     >
-      {props.pet.id}
       <span className="tooltiptext">Click to hide or unhide other dogs.</span>
       <li className="nameBar">{props.pet.name}</li>
       <li
