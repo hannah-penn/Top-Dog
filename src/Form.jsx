@@ -7,15 +7,31 @@ class Form extends Component {
     super(props);
     this.state = {
       newDogName: "",
+      newDogBreed: "",
     };
   }
+
+  dogBreeds = [
+    "Alsatian",
+    "Border Collie",
+    "Bull Terrier",
+    "Chihuahua",
+    "Cockapoo",
+    "Boxer",
+    "Dunker",
+    "Rottweiler",
+    "Serbian Hound",
+    "Whippet",
+    "Mexican Hairless Dog",
+  ];
 
   render() {
     return (
       <div>
         <input
+          required
           type="text"
-          //   placeholder="Enter dog name"
+          placeholder="Enter dog name"
           onChange={(event) => {
             this.setState((prevState) => {
               return { newDogName: event.target.value };
@@ -47,16 +63,41 @@ class Form extends Component {
         >
           Random name
         </button>
-        <p>I am a {this.state.newDogName}</p>
-        <input type="text"></input>
-        {/* <button
+        <input
+          required
+          list="dog-breeds"
+          type="text"
+          onChange={(event) => {
+            this.setState((prevState) => {
+              return { newDogBreed: event.target.value };
+            });
+          }}
+          value={this.state.newDogBreed}
+        ></input>
+        <p>
+          My name is {this.state.newDogName} and I am a {this.state.newDogBreed}
+          .
+        </p>
+        <button onClick={(event) => this.setState({ newDogBreed: "" })}>
+          Clear
+        </button>
+
+        <button
           type="submit"
           onClick={(event) => {
-            props.dogList(event.target.value);
+            this.props.addToDogList(
+              this.state.newDogName,
+              this.state.newDogBreed
+            );
           }}
         >
           Submit
-        </button> */}
+        </button>
+        <datalist id="dog-breeds">
+          {this.dogBreeds.map((dog, index) => {
+            return <option value={dog} key={index}></option>;
+          })}
+        </datalist>
       </div>
     );
   }

@@ -3,16 +3,18 @@ import DogCard from "./DogCard";
 import React, { Component } from "react";
 import TogglePicsButton from "./TogglePicsButton";
 import Form from "./Form";
+import placeholder_dog from "./placeholder_dog.jpg";
+import ChangeColorButton from "./ChangeColorButton";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      backgroundColor: "",
       showDogs: true,
       selectedDog: null,
       dogList: [
         {
-          id: 1,
           name: "Rex",
           breed: "Rottweiler",
           url: "https://cdn.petpress.net/wp-content/uploads/2019/10/12222841/Rottweiler8-.jpg",
@@ -37,7 +39,6 @@ class App extends Component {
           ],
         },
         {
-          id: 2,
           name: "Wally",
           breed: "Wolfhound",
           url: "https://i.pinimg.com/originals/77/9c/ec/779cec6e3a9230a8284e1087e80a3832.jpg",
@@ -59,7 +60,6 @@ class App extends Component {
           ],
         },
         {
-          id: 3,
           name: "Dora",
           breed: "Dachsund",
           url: "https://dachshundbonus.com/wp-content/uploads/2019/07/67338805_2295690134004037_9023976367661776896_n.jpg",
@@ -83,10 +83,9 @@ class App extends Component {
             },
           ],
         },
-      ];,
+      ],
     };
   }
-
 
   togglePics = () => {
     this.setState((prevState) => {
@@ -104,19 +103,47 @@ class App extends Component {
     });
   };
 
+  addToDogList = (name, breed) => {
+    let newDog = {
+      name: name,
+      breed: breed,
+      url: placeholder_dog,
+      bio: "",
+      extraphotos: [],
+    };
+    this.setState((prevState) => {
+      return { dogList: [...prevState.dogList, newDog] };
+    });
+  };
+
+  changeColor = () => {
+    let newColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    this.setState((prevState) => {
+      return { backgroundColor: newColor };
+    });
+  };
+
   render() {
     return (
-      <div className="App" style={{ backgroundColor: "lightskyblue" }}>
+      <div
+        className="App"
+        style={{ backgroundColor: this.state.backgroundColor }}
+      >
+        <ChangeColorButton changeColor={this.changeColor} />
         <TogglePicsButton togglePics={this.togglePics} />
-        <Form dogList={this.dogList} />
-        {this.dogList.map((pet) =>
+        <Form
+          dogList={this.state.dogList}
+          addToDogList={this.addToDogList}
+          dogToAdd={this.newDog}
+        />
+        {this.state.dogList.map((pet, index) =>
           this.state.selectedDog === null ? (
             <DogCard
               pet={pet}
               showDogs={this.state.showDogs}
               selectedDog={this.state.selectedDog}
               chooseDog={this.chooseDog}
-              key={pet.id.toString()}
+              key={index}
             />
           ) : (
             this.state.selectedDog === pet.name && (
@@ -125,13 +152,17 @@ class App extends Component {
                 showDogs={this.state.showDogs}
                 selectedDog={this.state.selectedDog}
                 chooseDog={this.chooseDog}
-                key={pet.id.toString()}
+                key={index}
               />
             )
           )
         )}
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.changeColor();
   }
 }
 
