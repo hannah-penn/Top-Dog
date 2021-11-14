@@ -123,6 +123,14 @@ class App extends Component {
     });
   };
 
+  checkBreedIsValid = (input, dogBreeds) => {
+    if (!input || !dogBreeds.includes(input)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   render() {
     return (
       <div
@@ -135,6 +143,7 @@ class App extends Component {
           dogList={this.state.dogList}
           addToDogList={this.addToDogList}
           dogToAdd={this.newDog}
+          checkBreedIsValid={this.checkBreedIsValid}
         />
         {this.state.dogList.map((pet, index) =>
           this.state.selectedDog === null ? (

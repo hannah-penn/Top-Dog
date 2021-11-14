@@ -85,10 +85,31 @@ class Form extends Component {
         <button
           type="submit"
           onClick={(event) => {
-            this.props.addToDogList(
-              this.state.newDogName,
-              this.state.newDogBreed
-            );
+            event.preventDefault();
+            if (
+              !this.props.checkBreedIsValid(
+                this.state.newDogBreed,
+                this.dogBreeds
+              )
+            ) {
+              alert("Input must be a valid breed.");
+              console.log(
+                `Failed to add ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+              );
+              return;
+            } else {
+              this.props.addToDogList(
+                this.state.newDogName,
+                this.state.newDogBreed
+              );
+              alert(
+                `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+              );
+              console.log(
+                `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+              );
+              return;
+            }
           }}
         >
           Submit
