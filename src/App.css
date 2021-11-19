@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-top: 100px;
 }
 
 .App-logo {
@@ -26,6 +27,33 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.navbar {
+  border: 3px solid black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding-bottom: 30px;
+  width: 100vw;
+  height: 60px;
+  background-color: darkturquoise;
+  text-decoration: none;
+  list-style-type: none;
+  display: inline;
+  font-size: 30px;
+  color: darkmagenta;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.navbar-link {
+  width: auto;
+  height: 60px;
+  padding: 10px;
+  margin: 15px;
+  display: inline;
 }
 
 .nameBar {

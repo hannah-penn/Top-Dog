@@ -25,6 +25,14 @@ class Form extends Component {
     "Mexican Hairless Dog",
   ];
 
+  checkBreedIsValid = (input, dogBreeds) => {
+    if (!input || !dogBreeds.includes(input)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   render() {
     return (
       <div>
@@ -43,15 +51,7 @@ class Form extends Component {
         <button onClick={(event) => this.setState({ newDogName: "" })}>
           Clear
         </button>
-        <button
-          onClick={(event) => {
-            this.setState((prevState) => {
-              return { newDogName: prevState.newDogName.toUpperCase() };
-            });
-          }}
-        >
-          Capitalize
-        </button>
+
         <button
           onClick={(event) => {
             let randomName =
@@ -87,16 +87,12 @@ class Form extends Component {
           onClick={(event) => {
             event.preventDefault();
             if (
-              !this.props.checkBreedIsValid(
-                this.state.newDogBreed,
-                this.dogBreeds
-              )
+              !this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
             ) {
               alert("Input must be a valid breed.");
               console.log(
                 `Failed to add ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
               );
-              return;
             } else {
               this.props.addToDogList(
                 this.state.newDogName,
@@ -108,7 +104,6 @@ class Form extends Component {
               console.log(
                 `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
               );
-              return;
             }
           }}
         >

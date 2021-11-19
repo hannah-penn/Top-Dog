@@ -1,10 +1,11 @@
 import "./App.css";
-import DogCard from "./DogCard";
 import React, { Component } from "react";
-import TogglePicsButton from "./TogglePicsButton";
-import Form from "./Form";
+import { Router } from "@reach/router";
 import placeholder_dog from "./placeholder_dog.jpg";
 import ChangeColorButton from "./ChangeColorButton";
+import Navbar from "./Navbar";
+import HomePage from "./HomePage";
+import ContactPage from "./ContactPage";
 
 class App extends Component {
   constructor(props) {
@@ -123,49 +124,27 @@ class App extends Component {
     });
   };
 
-  checkBreedIsValid = (input, dogBreeds) => {
-    if (!input || !dogBreeds.includes(input)) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   render() {
     return (
       <div
         className="App"
         style={{ backgroundColor: this.state.backgroundColor }}
       >
+        <Navbar />
         <ChangeColorButton changeColor={this.changeColor} />
-        <TogglePicsButton togglePics={this.togglePics} />
-        <Form
-          dogList={this.state.dogList}
-          addToDogList={this.addToDogList}
-          dogToAdd={this.newDog}
-          checkBreedIsValid={this.checkBreedIsValid}
-        />
-        {this.state.dogList.map((pet, index) =>
-          this.state.selectedDog === null ? (
-            <DogCard
-              pet={pet}
-              showDogs={this.state.showDogs}
-              selectedDog={this.state.selectedDog}
-              chooseDog={this.chooseDog}
-              key={index}
-            />
-          ) : (
-            this.state.selectedDog === pet.name && (
-              <DogCard
-                pet={pet}
-                showDogs={this.state.showDogs}
-                selectedDog={this.state.selectedDog}
-                chooseDog={this.chooseDog}
-                key={index}
-              />
-            )
-          )
-        )}
+
+        <Router>
+          <HomePage
+            addToDogList={this.addToDogList}
+            togglePics={this.togglePics}
+            chooseDog={this.chooseDog}
+            selectedDog={this.state.selectedDog}
+            dogList={this.state.dogList}
+            showDogs={this.state.showDogs}
+            path="/"
+          />
+          <ContactPage path="/contact" />
+        </Router>
       </div>
     );
   }
