@@ -9,9 +9,9 @@ const DogCard = (props) => {
           ? "tooltipcontainer selectedCard"
           : "tooltipcontainer anyCard"
       }
-      onClick={(event) => {
-        props.chooseDog(props.pet.name);
-      }}
+      // onClick={(event) => {
+      //   props.chooseDog(props.pet.name);
+      // }}
       id="dogCard"
     >
       <span className="tooltiptext">Click to hide or unhide other dogs.</span>

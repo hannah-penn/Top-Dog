@@ -4,15 +4,15 @@ import { Link } from "@reach/router";
 class Navbar extends Component {
   render() {
     return (
-      <nav class="navbar">
+      <nav className="navbar">
         <ul>
-          <Link class="navbar-link" to="/">
+          <Link className="navbar-link" to="/">
             Home
           </Link>
-          <Link class="navbar-link" to="/contact">
+          <Link className="navbar-link" to="/contact">
             <button>Contact</button>
           </Link>
-          <Link class="navbar-link" to="/about">
+          <Link className="navbar-link" to="/about">
             About
           </Link>
         </ul>

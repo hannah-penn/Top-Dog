@@ -6,12 +6,14 @@ import ChangeColorButton from "./ChangeColorButton";
 import Navbar from "./Navbar";
 import HomePage from "./HomePage";
 import ContactPage from "./ContactPage";
+import DogPage from "./DogPage";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       backgroundColor: "",
+      showSubmissionForm: true,
       showDogs: true,
       selectedDog: null,
       dogList: [
@@ -94,6 +96,14 @@ class App extends Component {
     });
   };
 
+  toggleSubmissions = () => {
+    this.setState((prevState) => {
+      return prevState.showSubmissionForm
+        ? { showSubmissionForm: false }
+        : { showSubmissionForm: true };
+    });
+  };
+
   chooseDog = (name) => {
     this.setState((prevState) => {
       if (prevState.selectedDog !== name) {
@@ -137,13 +147,16 @@ class App extends Component {
           <HomePage
             addToDogList={this.addToDogList}
             togglePics={this.togglePics}
+            toggleSubmissions={this.toggleSubmissions}
             chooseDog={this.chooseDog}
             selectedDog={this.state.selectedDog}
             dogList={this.state.dogList}
             showDogs={this.state.showDogs}
+            showSubmissionForm={this.state.showSubmissionForm}
             path="/"
           />
           <ContactPage path="/contact" />
+          <DogPage path="/dogs/:hundname" dogList={this.state.dogList} />
         </Router>
       </div>
     );

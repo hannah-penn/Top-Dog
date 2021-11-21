@@ -33,11 +33,26 @@ class Form extends Component {
     }
   };
 
+  checkNameIsUnique = (input) => {
+    let capInput = input.toUpperCase();
+    for (let i = 0; i < this.props.dogList.length; i++) {
+      let capDogName = this.props.dogList[i].name.toUpperCase();
+      if (capInput !== capDogName) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
   render() {
     return (
       <div>
         <input
           required
+          maxLength="12"
+          minLength="1"
+          pattern="[A-Za-z]{6}"
           type="text"
           placeholder="Enter dog name"
           onChange={(event) => {
@@ -51,7 +66,6 @@ class Form extends Component {
         <button onClick={(event) => this.setState({ newDogName: "" })}>
           Clear
         </button>
-
         <button
           onClick={(event) => {
             let randomName =
@@ -86,25 +100,43 @@ class Form extends Component {
           type="submit"
           onClick={(event) => {
             event.preventDefault();
-            if (
+            if (!this.checkNameIsUnique(this.state.newDogName)) {
+              alert("Name must be unique.");
+              return;
+            } else if (
               !this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
             ) {
-              alert("Input must be a valid breed.");
-              console.log(
-                `Failed to add ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-              );
+              alert("Input must be a valid breed");
+              return;
             } else {
+              alert(
+                `Successfully submitted ${this.state.newDogName} the ${this.state.newDogBreed}.`
+              );
               this.props.addToDogList(
                 this.state.newDogName,
                 this.state.newDogBreed
               );
-              alert(
-                `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-              );
-              console.log(
-                `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-              );
             }
+
+            // if (
+            //   !this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
+            // ) {
+            //   alert("Input must be a valid breed.");
+            //   console.log(
+            //     `Failed to add ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+            //   );
+            // } else {
+            //   this.props.addToDogList(
+            //     this.state.newDogName,
+            //     this.state.newDogBreed
+            //   );
+            //   alert(
+            //     `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+            //   );
+            //   console.log(
+            //     `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
+            //   );
+            // }
           }}
         >
           Submit
