@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Alert from "./Alert.jsx";
 
 let randomDogNames = ["Rover", "Tiffany Hadish", "Melvyn"];
 
@@ -8,6 +9,9 @@ class Form extends Component {
     this.state = {
       newDogName: "",
       newDogBreed: "",
+      inputNameIsUnique: null,
+      inputBreedIsValid: null,
+      messageForAlert: "",
     };
   }
 
@@ -27,10 +31,14 @@ class Form extends Component {
 
   checkBreedIsValid = (input, dogBreeds) => {
     if (!input || !dogBreeds.includes(input)) {
+      this.setState((prevState) => {
+        return {
+          messageForAlert: "Breed must be valid.",
+        };
+      });
       return false;
-    } else {
-      return true;
     }
+    return true;
   };
 
   checkNameIsUnique = (input) => {
@@ -38,11 +46,23 @@ class Form extends Component {
     for (let i = 0; i < this.props.dogList.length; i++) {
       let capDogName = this.props.dogList[i].name.toUpperCase();
       if (capInput !== capDogName) {
-        return true;
+        continue;
       } else {
+        this.setState((prevState) => {
+          return {
+            messageForAlert: "Name must be unique.",
+          };
+        });
         return false;
       }
     }
+    return true;
+  };
+
+  hideAlert = () => {
+    this.setState((prevState) => {
+      return { messageForAlert: "" };
+    });
   };
 
   render() {
@@ -95,52 +115,37 @@ class Form extends Component {
         <button onClick={(event) => this.setState({ newDogBreed: "" })}>
           Clear
         </button>
-
         <button
           type="submit"
           onClick={(event) => {
             event.preventDefault();
-            if (!this.checkNameIsUnique(this.state.newDogName)) {
-              alert("Name must be unique.");
-              return;
-            } else if (
-              !this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
+
+            if (
+              this.checkNameIsUnique(this.state.newDogName) &&
+              this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
             ) {
-              alert("Input must be a valid breed");
-              return;
-            } else {
-              alert(
-                `Successfully submitted ${this.state.newDogName} the ${this.state.newDogBreed}.`
-              );
               this.props.addToDogList(
                 this.state.newDogName,
                 this.state.newDogBreed
               );
+              this.setState((prevState) => {
+                return {
+                  messageForAlert: `Successfully added ${this.state.newDogName} the ${this.state.newDogBreed}.`,
+                };
+              });
             }
-
-            // if (
-            //   !this.checkBreedIsValid(this.state.newDogBreed, this.dogBreeds)
-            // ) {
-            //   alert("Input must be a valid breed.");
-            //   console.log(
-            //     `Failed to add ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-            //   );
-            // } else {
-            //   this.props.addToDogList(
-            //     this.state.newDogName,
-            //     this.state.newDogBreed
-            //   );
-            //   alert(
-            //     `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-            //   );
-            //   console.log(
-            //     `Added ${this.state.newDogName} the ${this.state.newDogBreed} to the array of dogs.`
-            //   );
-            // }
           }}
         >
           Submit
         </button>
+
+        {this.state.messageForAlert && (
+          <Alert
+            message={this.state.messageForAlert}
+            hideAlert={this.hideAlert}
+          />
+        )}
+
         <datalist id="dog-breeds">
           {this.dogBreeds.map((dog, index) => {
             return <option value={dog} key={index}></option>;

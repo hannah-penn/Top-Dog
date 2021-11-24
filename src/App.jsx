@@ -86,6 +86,12 @@ class App extends Component {
             },
           ],
         },
+        {
+          name: "Brrrrr",
+          breed: "Kaltweiler",
+          url: "https://www.animalfunfacts.net/images/stories/picture_of_the_day/pet_dachshund.jpg",
+          bio: "",
+        },
       ],
     };
   }
@@ -140,8 +146,11 @@ class App extends Component {
         className="App"
         style={{ backgroundColor: this.state.backgroundColor }}
       >
+        {/* <ChangeColorButton
+          changeColor={this.changeColor}
+          className="changeColorButton"
+        /> */}
         <Navbar />
-        <ChangeColorButton changeColor={this.changeColor} />
 
         <Router>
           <HomePage
